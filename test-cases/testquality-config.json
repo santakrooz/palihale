@@ -1,0 +1,51 @@
+{
+  "testquality": {
+    "api_version": "v1",
+    "project_name": "Polymarket Clone",
+    "sync_settings": {
+      "auto_sync": true,
+      "sync_interval": "daily",
+      "conflict_resolution": "server_wins"
+    },
+    "mapping": {
+      "test_suite_field": "suite_name",
+      "test_case_id_field": "test_case_id",
+      "priority_field": "priority",
+      "status_field": "status",
+      "tags_field": "tags"
+    },
+    "import_settings": {
+      "source_file": "polymarket-test-cases.json",
+      "format": "json",
+      "import_mode": "merge"
+    },
+    "export_settings": {
+      "include_results": true,
+      "include_attachments": false,
+      "export_format": "json"
+    }
+  },
+  "connection": {
+    "api_endpoint": "https://api.testquality.com/api/v1",
+    "authentication": {
+      "type": "api_key",
+      "api_key_env_var": "TESTQUALITY_API_KEY"
+    }
+  },
+  "instructions": {
+    "setup": [
+      "1. Sign up for TestQuality at https://testquality.com",
+      "2. Generate an API key from your TestQuality account settings",
+      "3. Set the TESTQUALITY_API_KEY environment variable",
+      "4. Run the sync script to upload test cases"
+    ],
+    "sync_command": "npm run sync-testquality",
+    "manual_import": [
+      "1. Log into TestQuality",
+      "2. Navigate to your project",
+      "3. Go to Import/Export section",
+      "4. Upload the polymarket-test-cases.json file",
+      "5. Map fields according to the mapping configuration"
+    ]
+  }
+}

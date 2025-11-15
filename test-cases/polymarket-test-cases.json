@@ -1,0 +1,663 @@
+{
+  "project": "Polymarket Clone",
+  "version": "1.0.0",
+  "test_suites": [
+    {
+      "suite_name": "User Authentication",
+      "suite_id": "TS-001",
+      "test_cases": [
+        {
+          "test_case_id": "TC-001",
+          "title": "User Registration with Valid Wallet",
+          "priority": "High",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User has a compatible Web3 wallet installed (e.g., MetaMask)",
+            "User is not already registered"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to the Polymarket clone homepage",
+              "expected_result": "Homepage loads successfully"
+            },
+            {
+              "step_number": 2,
+              "action": "Click on 'Connect Wallet' button",
+              "expected_result": "Wallet connection modal appears"
+            },
+            {
+              "step_number": 3,
+              "action": "Select MetaMask and approve connection",
+              "expected_result": "Wallet successfully connects and user is registered"
+            },
+            {
+              "step_number": 4,
+              "action": "Verify user dashboard is accessible",
+              "expected_result": "User is redirected to dashboard with wallet address displayed"
+            }
+          ],
+          "tags": ["authentication", "wallet", "registration", "smoke"]
+        },
+        {
+          "test_case_id": "TC-002",
+          "title": "User Login with Existing Wallet",
+          "priority": "High",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User has previously registered with a wallet",
+            "User has MetaMask installed"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to the application",
+              "expected_result": "Homepage loads"
+            },
+            {
+              "step_number": 2,
+              "action": "Click 'Connect Wallet'",
+              "expected_result": "MetaMask prompts for connection"
+            },
+            {
+              "step_number": 3,
+              "action": "Approve wallet connection",
+              "expected_result": "User is logged in and sees their previous activity"
+            }
+          ],
+          "tags": ["authentication", "wallet", "login"]
+        }
+      ]
+    },
+    {
+      "suite_name": "Market Creation",
+      "suite_id": "TS-002",
+      "test_cases": [
+        {
+          "test_case_id": "TC-003",
+          "title": "Create Binary Market with Valid Parameters",
+          "priority": "Critical",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User is authenticated",
+            "User has sufficient balance for market creation fee"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to 'Create Market' page",
+              "expected_result": "Market creation form is displayed"
+            },
+            {
+              "step_number": 2,
+              "action": "Enter market question: 'Will Bitcoin reach $100,000 by end of 2025?'",
+              "expected_result": "Question is accepted and validated"
+            },
+            {
+              "step_number": 3,
+              "action": "Set market type to 'Binary' (Yes/No)",
+              "expected_result": "Binary options are displayed"
+            },
+            {
+              "step_number": 4,
+              "action": "Set resolution date to '2025-12-31'",
+              "expected_result": "Date is accepted"
+            },
+            {
+              "step_number": 5,
+              "action": "Add market category and tags",
+              "expected_result": "Category and tags are saved"
+            },
+            {
+              "step_number": 6,
+              "action": "Set initial liquidity amount",
+              "expected_result": "Liquidity parameters are validated"
+            },
+            {
+              "step_number": 7,
+              "action": "Submit market creation",
+              "expected_result": "Transaction is sent to blockchain and market is created with unique ID"
+            }
+          ],
+          "tags": ["market", "creation", "binary", "critical"]
+        },
+        {
+          "test_case_id": "TC-004",
+          "title": "Create Market with Invalid Resolution Date",
+          "priority": "Medium",
+          "status": "Active",
+          "type": "Negative",
+          "preconditions": [
+            "User is authenticated"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to 'Create Market' page",
+              "expected_result": "Market creation form is displayed"
+            },
+            {
+              "step_number": 2,
+              "action": "Enter valid market question",
+              "expected_result": "Question is accepted"
+            },
+            {
+              "step_number": 3,
+              "action": "Set resolution date to a past date",
+              "expected_result": "Error message: 'Resolution date must be in the future'"
+            },
+            {
+              "step_number": 4,
+              "action": "Attempt to submit market",
+              "expected_result": "Submission is blocked and validation error is shown"
+            }
+          ],
+          "tags": ["market", "creation", "validation", "negative"]
+        }
+      ]
+    },
+    {
+      "suite_name": "Trading & Order Management",
+      "suite_id": "TS-003",
+      "test_cases": [
+        {
+          "test_case_id": "TC-005",
+          "title": "Place Buy Order on Binary Market",
+          "priority": "Critical",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User is authenticated",
+            "User has USDC balance",
+            "Active market exists"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to an active market",
+              "expected_result": "Market details and order book are displayed"
+            },
+            {
+              "step_number": 2,
+              "action": "Select 'Yes' outcome",
+              "expected_result": "Order form appears for 'Yes' shares"
+            },
+            {
+              "step_number": 3,
+              "action": "Enter order amount: 100 USDC",
+              "expected_result": "Calculated shares and average price are shown"
+            },
+            {
+              "step_number": 4,
+              "action": "Review order details and confirm",
+              "expected_result": "Wallet prompts for transaction approval"
+            },
+            {
+              "step_number": 5,
+              "action": "Approve transaction in wallet",
+              "expected_result": "Order is placed successfully"
+            },
+            {
+              "step_number": 6,
+              "action": "Verify order appears in 'My Positions'",
+              "expected_result": "Position shows correct share amount and value"
+            }
+          ],
+          "tags": ["trading", "buy", "order", "critical"]
+        },
+        {
+          "test_case_id": "TC-006",
+          "title": "Place Sell Order to Close Position",
+          "priority": "High",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User has existing position in a market",
+            "Market is still active"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to 'My Positions'",
+              "expected_result": "List of positions is displayed"
+            },
+            {
+              "step_number": 2,
+              "action": "Select position to sell",
+              "expected_result": "Position details are shown"
+            },
+            {
+              "step_number": 3,
+              "action": "Click 'Sell' and enter amount to sell",
+              "expected_result": "Sell order form appears with current market price"
+            },
+            {
+              "step_number": 4,
+              "action": "Confirm sell order",
+              "expected_result": "Transaction is processed"
+            },
+            {
+              "step_number": 5,
+              "action": "Verify USDC balance is updated",
+              "expected_result": "Balance reflects sale proceeds"
+            }
+          ],
+          "tags": ["trading", "sell", "position"]
+        },
+        {
+          "test_case_id": "TC-007",
+          "title": "Attempt Trade with Insufficient Balance",
+          "priority": "Medium",
+          "status": "Active",
+          "type": "Negative",
+          "preconditions": [
+            "User is authenticated",
+            "User has less USDC than trade amount"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to an active market",
+              "expected_result": "Market is displayed"
+            },
+            {
+              "step_number": 2,
+              "action": "Enter trade amount exceeding user's balance",
+              "expected_result": "Error message: 'Insufficient balance'"
+            },
+            {
+              "step_number": 3,
+              "action": "Attempt to submit order",
+              "expected_result": "Order submission is blocked"
+            }
+          ],
+          "tags": ["trading", "validation", "negative"]
+        }
+      ]
+    },
+    {
+      "suite_name": "Market Resolution",
+      "suite_id": "TS-004",
+      "test_cases": [
+        {
+          "test_case_id": "TC-008",
+          "title": "Resolve Binary Market with Yes Outcome",
+          "priority": "Critical",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User is market creator or oracle",
+            "Market resolution date has passed",
+            "Market has not been resolved"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to market resolution page",
+              "expected_result": "List of resolvable markets is shown"
+            },
+            {
+              "step_number": 2,
+              "action": "Select market to resolve",
+              "expected_result": "Market details and resolution options appear"
+            },
+            {
+              "step_number": 3,
+              "action": "Select 'Yes' as the outcome",
+              "expected_result": "Confirmation dialog appears"
+            },
+            {
+              "step_number": 4,
+              "action": "Provide resolution source/proof",
+              "expected_result": "Source is recorded"
+            },
+            {
+              "step_number": 5,
+              "action": "Confirm resolution",
+              "expected_result": "Resolution transaction is submitted"
+            },
+            {
+              "step_number": 6,
+              "action": "Verify market status changes to 'Resolved'",
+              "expected_result": "Market shows as resolved with 'Yes' outcome"
+            }
+          ],
+          "tags": ["resolution", "market", "critical"]
+        },
+        {
+          "test_case_id": "TC-009",
+          "title": "Claim Winnings from Resolved Market",
+          "priority": "Critical",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User holds winning position in resolved market",
+            "Market is fully resolved"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to 'My Positions'",
+              "expected_result": "Positions list shows winning position with 'Claim' button"
+            },
+            {
+              "step_number": 2,
+              "action": "Click 'Claim Winnings' for the position",
+              "expected_result": "Claim dialog shows winning amount"
+            },
+            {
+              "step_number": 3,
+              "action": "Confirm claim transaction",
+              "expected_result": "Wallet prompts for approval"
+            },
+            {
+              "step_number": 4,
+              "action": "Approve transaction",
+              "expected_result": "Winnings are transferred to user's wallet"
+            },
+            {
+              "step_number": 5,
+              "action": "Verify balance update",
+              "expected_result": "USDC balance reflects claimed winnings"
+            }
+          ],
+          "tags": ["resolution", "winnings", "claim", "critical"]
+        }
+      ]
+    },
+    {
+      "suite_name": "Liquidity Management",
+      "suite_id": "TS-005",
+      "test_cases": [
+        {
+          "test_case_id": "TC-010",
+          "title": "Add Liquidity to Market Pool",
+          "priority": "High",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User is authenticated",
+            "User has USDC balance",
+            "Market exists and accepts liquidity"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to market page",
+              "expected_result": "Market details are displayed"
+            },
+            {
+              "step_number": 2,
+              "action": "Click 'Add Liquidity' tab",
+              "expected_result": "Liquidity form is shown"
+            },
+            {
+              "step_number": 3,
+              "action": "Enter liquidity amount (e.g., 1000 USDC)",
+              "expected_result": "Expected LP tokens and share are calculated"
+            },
+            {
+              "step_number": 4,
+              "action": "Confirm liquidity provision",
+              "expected_result": "Transaction is submitted"
+            },
+            {
+              "step_number": 5,
+              "action": "Verify LP tokens are received",
+              "expected_result": "LP token balance is updated in wallet"
+            }
+          ],
+          "tags": ["liquidity", "pool", "LP"]
+        },
+        {
+          "test_case_id": "TC-011",
+          "title": "Remove Liquidity from Market Pool",
+          "priority": "High",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "User has LP tokens for a market",
+            "Market allows liquidity removal"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to 'My Liquidity' page",
+              "expected_result": "List of LP positions is shown"
+            },
+            {
+              "step_number": 2,
+              "action": "Select position to remove",
+              "expected_result": "Removal form appears"
+            },
+            {
+              "step_number": 3,
+              "action": "Enter amount or percentage to remove",
+              "expected_result": "Expected returns are calculated"
+            },
+            {
+              "step_number": 4,
+              "action": "Confirm removal",
+              "expected_result": "Transaction is processed"
+            },
+            {
+              "step_number": 5,
+              "action": "Verify assets are returned to wallet",
+              "expected_result": "USDC balance is updated correctly"
+            }
+          ],
+          "tags": ["liquidity", "pool", "removal"]
+        }
+      ]
+    },
+    {
+      "suite_name": "UI/UX Testing",
+      "suite_id": "TS-006",
+      "test_cases": [
+        {
+          "test_case_id": "TC-012",
+          "title": "Market Search and Filtering",
+          "priority": "Medium",
+          "status": "Active",
+          "type": "Functional",
+          "preconditions": [
+            "Multiple markets exist in the platform"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to markets page",
+              "expected_result": "All active markets are displayed"
+            },
+            {
+              "step_number": 2,
+              "action": "Use search bar to search for 'Bitcoin'",
+              "expected_result": "Only markets containing 'Bitcoin' are shown"
+            },
+            {
+              "step_number": 3,
+              "action": "Apply category filter for 'Crypto'",
+              "expected_result": "Results are filtered to crypto markets"
+            },
+            {
+              "step_number": 4,
+              "action": "Sort by 'Volume (High to Low)'",
+              "expected_result": "Markets are reordered by trading volume"
+            }
+          ],
+          "tags": ["ui", "search", "filter"]
+        },
+        {
+          "test_case_id": "TC-013",
+          "title": "Responsive Design - Mobile View",
+          "priority": "Medium",
+          "status": "Active",
+          "type": "UI",
+          "preconditions": [
+            "Access application on mobile device or browser dev tools"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Open application on mobile viewport (375px width)",
+              "expected_result": "Layout adapts to mobile view"
+            },
+            {
+              "step_number": 2,
+              "action": "Navigate through main pages",
+              "expected_result": "All pages are accessible and readable"
+            },
+            {
+              "step_number": 3,
+              "action": "Test wallet connection on mobile",
+              "expected_result": "Wallet connects properly via mobile wallet apps"
+            },
+            {
+              "step_number": 4,
+              "action": "Place a test trade",
+              "expected_result": "Trade interface is functional on mobile"
+            }
+          ],
+          "tags": ["ui", "responsive", "mobile"]
+        }
+      ]
+    },
+    {
+      "suite_name": "Performance Testing",
+      "suite_id": "TS-007",
+      "test_cases": [
+        {
+          "test_case_id": "TC-014",
+          "title": "Load Time for Market Listing Page",
+          "priority": "Medium",
+          "status": "Active",
+          "type": "Performance",
+          "preconditions": [
+            "At least 100 markets exist in the system"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Navigate to markets listing page",
+              "expected_result": "Page loads within 2 seconds"
+            },
+            {
+              "step_number": 2,
+              "action": "Scroll through market list",
+              "expected_result": "Smooth scrolling with lazy loading"
+            },
+            {
+              "step_number": 3,
+              "action": "Monitor network requests",
+              "expected_result": "API calls are optimized, no redundant requests"
+            }
+          ],
+          "tags": ["performance", "load-time"]
+        },
+        {
+          "test_case_id": "TC-015",
+          "title": "Concurrent Trading Stress Test",
+          "priority": "Low",
+          "status": "Active",
+          "type": "Performance",
+          "preconditions": [
+            "Test environment with multiple test accounts"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Simulate 50 concurrent users placing trades",
+              "expected_result": "All trades are processed successfully"
+            },
+            {
+              "step_number": 2,
+              "action": "Monitor system response time",
+              "expected_result": "Average response time stays under 3 seconds"
+            },
+            {
+              "step_number": 3,
+              "action": "Check for transaction failures or conflicts",
+              "expected_result": "No race conditions or transaction failures occur"
+            }
+          ],
+          "tags": ["performance", "stress", "concurrent"]
+        }
+      ]
+    },
+    {
+      "suite_name": "Security Testing",
+      "suite_id": "TS-008",
+      "test_cases": [
+        {
+          "test_case_id": "TC-016",
+          "title": "Wallet Signature Verification",
+          "priority": "Critical",
+          "status": "Active",
+          "type": "Security",
+          "preconditions": [
+            "User has MetaMask installed"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Attempt to connect wallet",
+              "expected_result": "Signature request is prompted"
+            },
+            {
+              "step_number": 2,
+              "action": "Reject signature in MetaMask",
+              "expected_result": "Connection fails gracefully"
+            },
+            {
+              "step_number": 3,
+              "action": "Attempt to access authenticated endpoints without signature",
+              "expected_result": "Access is denied with 401 error"
+            }
+          ],
+          "tags": ["security", "authentication", "critical"]
+        },
+        {
+          "test_case_id": "TC-017",
+          "title": "Smart Contract Authorization Check",
+          "priority": "Critical",
+          "status": "Active",
+          "type": "Security",
+          "preconditions": [
+            "User is authenticated",
+            "Market exists"
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "Attempt to resolve a market created by another user",
+              "expected_result": "Transaction is rejected by smart contract"
+            },
+            {
+              "step_number": 2,
+              "action": "Attempt to claim winnings for position not owned",
+              "expected_result": "Smart contract reverts transaction"
+            },
+            {
+              "step_number": 3,
+              "action": "Verify only authorized users can perform privileged actions",
+              "expected_result": "All authorization checks pass"
+            }
+          ],
+          "tags": ["security", "authorization", "smart-contract", "critical"]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "created_date": "2025-11-15",
+    "total_test_cases": 17,
+    "automation_status": {
+      "automated": 0,
+      "manual": 17,
+      "automation_planned": 10
+    }
+  }
+}
